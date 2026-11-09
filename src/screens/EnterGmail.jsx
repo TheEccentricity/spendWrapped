@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import { ArrowIcon, LockIcon } from "../components/icons.jsx";
 import { googleAuth } from "../utils/googleAuth.ts";
@@ -78,6 +78,12 @@ export default function EnterGmail({ onAuthCode }) {
 					</p>
 				</div>
 			</div>
+
+			<footer className="enter__footer">
+				<Link to="/privacy">Privacy Policy</Link>
+				<span aria-hidden="true"> · </span>
+				<Link to="/terms">Terms of Service</Link>
+			</footer>
 		</main>
 	);
 }

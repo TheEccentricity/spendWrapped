@@ -273,6 +273,77 @@
   .enter__form .select { background-color: var(--bg); }
 }
 
+/* Footer links (privacy / terms) on the landing page. */
+.enter__footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+.enter__footer a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+.enter__footer a:hover { color: var(--text); }
+.enter__footer a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Legal pages — Privacy Policy / Terms of Service
+   ========================================================================== */
+.legal {
+  max-width: 720px;
+  margin-inline: auto;
+  padding-bottom: 48px;
+}
+.legal__title {
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 10px 0 6px;
+}
+.legal__meta {
+  font-size: 14px;
+  color: var(--empty);
+  margin: 0 0 24px;
+}
+.legal h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 28px 0 8px;
+}
+.legal .body {
+  font-size: 17px;
+  margin: 0 0 4px;
+}
+.legal a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.legal a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+.legal code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+.legal__back {
+  margin-top: 36px;
+  font-size: 15px;
+  color: var(--muted);
+}
+@media (min-width: 640px) {
+  .legal__title { font-size: 46px; }
+}
+
 /* ==========================================================================
    Screen 2 — Loading
    ========================================================================== */

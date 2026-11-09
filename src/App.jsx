@@ -4,6 +4,8 @@ import { useMutation } from '@tanstack/react-query'
 import EnterGmail from './screens/EnterGmail.jsx'
 import Loading from './screens/Loading.jsx'
 import Breakdown from './screens/Breakdown.jsx'
+import Privacy from './screens/Privacy.jsx'
+import Terms from './screens/Terms.jsx'
 import { fetchBreakdown, mapBreakdown } from './api/breakdown.js'
 import './App.css'
 
@@ -52,6 +54,8 @@ function App() {
           )
         }
       />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
