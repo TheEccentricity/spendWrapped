@@ -1,0 +1,67 @@
+:root {
+  /* Design tokens — neutral dark theme, green accent */
+  --bg: #121413;
+  --surface: #1b1e1c;
+  --border: #2d322f;
+  --bar-track: #262a27;
+  --text: #f1efe8;
+  --muted: #a8ada7;
+  --empty: #8b918a;
+  --pending: #4a514c;
+  --button-fill: #232c26;
+  --secondary-border: #3a403c;
+  --accent: #c6f432;
+
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'DM Mono', ui-monospace, Consolas, monospace;
+
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  font-family: var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* Visible focus for every interactive element */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
