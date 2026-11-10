@@ -1,19 +1,7 @@
-// API client + response mapping for the expense breakdown.
-//
-// The backend (expenseCalculator `POST /google/breakdown`) takes the one-time
-// Google OAuth `code` plus a `keyword`, scans Gmail, and returns one entry per
-// month (January .. current month) with the matching receipts' snippets. The
-// price is carried inside each snippet's text, so the client parses it out and
-// sums per month to produce the amounts the Breakdown screen renders.
-
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
 
-// Platforms shown in the picker. `keyword` is the value the backend's
-// AcceptedKeyword enum expects. Chowdeck is the only one supported for now;
-// add entries here as the backend accepts more keywords.
 export const PLATFORMS = [{ keyword: 'chowdeck', label: 'Chowdeck' }]
 
-// The picker's default, and the fallback keyword for the scan.
 export const DEFAULT_KEYWORD = PLATFORMS[0].keyword
 
 const PLATFORM_LABEL = Object.fromEntries(PLATFORMS.map((p) => [p.keyword, p.label]))
@@ -46,17 +34,67 @@ export async function fetchBreakdown({ token, keyword = DEFAULT_KEYWORD }) {
   return res.json()
 }
 
-// Verdict lines picked by how much was spent for the year to date.
+// Verdict lines grouped by spending tier (year to date). One is picked at
+// random from the matching tier, so each level keeps a bit of surprise.
+// Tone: light-hearted roasting — funny, never mean.
 const VERDICTS = [
-  { max: 0, text: 'Nothing found. Either you’re disciplined or you order under a different email.' },
-  { max: 20000, text: 'A light year. Your wallet barely noticed.' },
-  { max: 100000, text: 'A steady trickle of “just one more order.” It adds up quietly.' },
-  { max: 500000, text: 'That’s a month of rent spent one delivery at a time.' },
-  { max: Infinity, text: 'Enough to feed a small village — but hey, no dishes to wash.' },
+  {
+    max: 0,
+    texts: [
+      'Nothing found. Either you’re disciplined or you order under a different email. We see you.',
+      'Zero receipts. Suspiciously clean. Who are you hiding the snacks from?',
+      'Nada. You’re either a master of self-control or a master of hiding your receipts.',
+    ],
+  },
+  {
+    max: 20000,
+    texts: [
+      'Your kitchen must be doing numbers. Respect.',
+      'A light year. Your wallet barely noticed — and neither did your stomach.',
+      'Rookie numbers. You’re practically meal-prepping, aren’t you? Weirdo.',
+      'Featherweight spending. The delivery riders don’t even know your name yet.',
+    ],
+  },
+  {
+    max: 100000,
+    texts: [
+      'A steady trickle of “just one more order.” It adds up quietly. Like your regrets.',
+      'Comfortably in denial. You’d call this “treating yourself.” Every. Single. Week.',
+      'Not reckless, just… consistently weak. The app has a favorite, and it’s you.',
+    ],
+  },
+  {
+    max: 500000,
+    texts: [
+      'That’s a month of rent spent one delivery at a time. Bold strategy.',
+      'You could’ve bought a small appliance. Instead: fries. Many, many fries.',
+      'At this point the restaurant should be sending YOU a Christmas card.',
+    ],
+  },
+  {
+    max: 1000000,
+    texts: [
+      'Enough to feed a small village — but hey, no dishes to wash.',
+      'You didn’t order food. You funded a franchise. Congratulations, shareholder.',
+      'The riders have a group chat and you’re the main topic. Legend, allegedly.',
+      'This isn’t a spending habit, it’s a lifestyle subscription you forgot to cancel.',
+    ],
+  },
+  {
+    max: Infinity,
+    texts: [
+      'Millions. On delivery. Sir/ma, this is a financial emergency with extra ketchup.',
+      'Seven figures of “I’ll cook tomorrow.” Tomorrow never came, and neither did your savings.',
+      'You personally kept the entire kitchen employed this year. HR should send you a thank-you.',
+      'A millionaire’s spend. Iconic. Devastating. Hungry.',
+      'At this point you don’t have a food budget, the food has a you budget.',
+    ],
+  },
 ]
 
 function pickVerdict(total) {
-  return (VERDICTS.find((v) => total <= v.max) ?? VERDICTS[VERDICTS.length - 1]).text
+  const tier = VERDICTS.find((v) => total <= v.max) ?? VERDICTS[VERDICTS.length - 1]
+  return tier.texts[Math.floor(Math.random() * tier.texts.length)]
 }
 
 /**
