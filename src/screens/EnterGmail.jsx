@@ -83,6 +83,17 @@ export default function EnterGmail({ onAuthCode }) {
 				<Link to="/privacy">Privacy Policy</Link>
 				<span aria-hidden="true"> · </span>
 				<Link to="/terms">Terms of Service</Link>
+				<p className="enter__copyright">
+					© {new Date().getFullYear()}{" "}
+					<a
+						href="https://theeccentricity.github.io"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						TheEccentricity
+					</a>
+					. All rights reserved.
+				</p>
 			</footer>
 		</main>
 	);
