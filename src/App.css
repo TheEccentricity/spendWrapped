@@ -463,9 +463,11 @@
 .total__amount {
   font-family: var(--mono);
   font-weight: 500;
-  font-size: 54px;
+  /* Scale with viewport so large totals (millions) don't overflow on phones. */
+  font-size: clamp(30px, 11vw, 54px);
   letter-spacing: -0.02em;
   color: var(--text);
+  overflow-wrap: anywhere;
 }
 
 .verdict__eyebrow { margin-bottom: 10px; }
